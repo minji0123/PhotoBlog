@@ -1,5 +1,6 @@
 package com.example.blog.dto;
 
+import com.example.blog.entity.PostEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,5 +30,13 @@ public class PostDto {
     // 상품 등록 전에는 이미지가 없으니까 비어있음(이미지도 공백, 아이디도 공백!)
     // 그냥 수정할 때 이미지 아이디 저장해둘 용도
     private List<Long> itemImgIdList = new ArrayList<>();
+
+    // 상품 저장 후 수정할 때 상품 이미지 정보를 저장하는 리스트
+    private List<ImgDto> itemImgDtoList = new ArrayList<>();
+
+    public PostEntity toEntity (){
+        return new PostEntity(title,content);
+    }
+
 
 }
