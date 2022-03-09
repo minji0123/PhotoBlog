@@ -1,5 +1,6 @@
 package com.example.blog.entity;
 
+import com.example.blog.dto.PostDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,4 +38,10 @@ public class PostEntity {
             this.content = postEntity.content;
         }
     }
+
+    // toDto
+    public PostDto toDto(){
+        return new PostDto(title, content);
+    }
+
 }
