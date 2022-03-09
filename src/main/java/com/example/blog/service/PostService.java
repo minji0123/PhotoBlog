@@ -2,6 +2,7 @@ package com.example.blog.service;
 
 
 import com.example.blog.dto.ImgDto;
+import com.example.blog.dto.MainPostDto;
 import com.example.blog.dto.PostDto;
 import com.example.blog.entity.ImgEntity;
 import com.example.blog.entity.PostEntity;
@@ -25,6 +26,36 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final ImgRepository imgRepository;
+
+
+    public List<MainPostDto> showPost(){
+        List<MainPostDto> mainPostDtoList = new ArrayList<>();
+
+        List<PostEntity> postEntities = postRepository.findAll();
+        String repimgUrl = "";
+
+        for (PostEntity postEntity : postEntities) {
+            List<ImgEntity> imgEntities = imgRepository.findByPostEntityIdOrderByIdAsc(postEntity.getId());
+
+            for (ImgEntity imgEntity : imgEntities) {
+                if (imgEntity.getRepimgYn().equals("Y")){
+                    repimgUrl = imgEntity.getImgUrl();
+                    break;
+                }
+            }
+
+            MainPostDto mainPostDto = MainPostDto.builder()
+                    .id(postEntity.getId())
+                    .title(postEntity.getTitle())
+                    .content(postEntity.getContent())
+                    .imgUrl(repimgUrl)
+                    .build();
+
+            mainPostDtoList.add(mainPostDto);
+        }
+
+        return mainPostDtoList;
+    }
 
     public Long savePost(PostDto postDto, List<MultipartFile> itemImgFileList) throws Exception{
 
@@ -66,15 +97,12 @@ public class PostService {
 
         // 글 repository -> entity -> dto
         PostEntity postEntity = postRepository.findById(id).orElse(null);
+
         PostDto postDto = postEntity.toDto();
         postDto.setPostImgDtoList(imgDtoList);
 
         return postDto;
     }
-
-    // 필요한 정보만 출력해야 하기 때문에 mainPostDto 를 만들어준다.
-    // 안그러면 json 에 유출된다.
-//    public Page<>
 
 
     public Long updatePost(PostDto postDto, List<MultipartFile> itemImgFileList) throws Exception{

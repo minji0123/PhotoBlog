@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @NoArgsConstructor
 @Entity
 @Table
@@ -13,7 +14,6 @@ import javax.persistence.*;
 public class PostEntity {
 
     // id, title, content
-
     @Id
     @GeneratedValue
     @Column(name="post_id")
@@ -41,7 +41,7 @@ public class PostEntity {
 
     // toDto
     public PostDto toDto(){
-        return new PostDto(title, content);
+        return new PostDto(id,title, content);
     }
 
 }

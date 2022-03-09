@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+    </script>
+</th:block>
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<div layout:fragment="content" >
+
+    <div class="container">
+        <input type="hidden" id="itemId" th:value="${postDto.id}">
+
+        <div class="d-flex detail-mt-md">
+
+<!--            <div class="repImgDiv">-->
+<!--                <img th:src="${postDto.postImgDtoList[0].imgUrl}" class = "rounded repImg" th:alt="${postDto.id}">-->
+<!--            </div>-->
+
+            <div class="wd50">
+                <h1 th:text="${postDto.title}"></h1>
+                <p th:text="${postDto.content}"></p>
+
+            </div>
+        </div>
+
+        <!-- 등록한 상품 이미지를 반복문으로 출력 -->
+        <div th:each="itemImg : ${postDto.postImgDtoList}" class="text-center">
+            <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
+        </div>
+    </div>
+
+
+</div>
+
+</html>

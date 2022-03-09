@@ -27,7 +27,8 @@ public class PostDto {
     private LocalDateTime updateAt;
 
 
-    public PostDto(String title, String content) {
+    public PostDto(Long id,String title, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
     }

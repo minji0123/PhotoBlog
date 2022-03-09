@@ -16,5 +16,5 @@ import java.awt.print.Pageable;
 public interface PostRepositoryCustom {
 
     // 메인 페이지에서 보여줄 글 리스트
-    Page<MainPostDto> getMainPostPage(PostSearchDto postSearchDto, Pageable pageable);
+//    Page<MainPostDto> getMainPostPage(PostSearchDto postSearchDto, Pageable pageable);
 }

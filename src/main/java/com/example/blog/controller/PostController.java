@@ -27,33 +27,33 @@ public class PostController {
     public String postDetail(Model model, @PathVariable Long id){
 
         PostDto postDto = postService.getPostDetail(id);
-        model.addAttribute("post",postDto);
+        model.addAttribute("postDto",postDto);
         return "post/detail";
     }
 
     // 글 등록 view
     @GetMapping("/new")
     public String mainPage(Model model){
-        model.addAttribute("PostDto",new PostDto());
+        model.addAttribute("postDto",new PostDto());
         return "post/new";
     }
 
     // 글 등록 post
     @PostMapping("/new")
-    public String newPost(@ModelAttribute PostDto postDto, List<MultipartFile> itemImgFileList,
+    public String newPost(@ModelAttribute PostDto postDto, @RequestParam("imgFile") List<MultipartFile> imgFileList,
                             Model model){
 
         // 글 작성 시 이미지가 없으면 애러발생
-        if(itemImgFileList.get(0).isEmpty() && postDto.getId() == null){
+        if(imgFileList.get(0).isEmpty() && postDto.getId() == null){
             model.addAttribute("errorMessage","이미지를 넣어주세요");
 
             // 글 작성 페이지로 이동
             return "post/new";
         }
 
-        // 글 작성
+        // 글 + 이미지 작성
         try{
-            postService.savePost(postDto ,itemImgFileList);
+            postService.savePost(postDto ,imgFileList);
 
         }catch(Exception e){
             model.addAttribute("errorMessage","에러가 발생했습니다.");
@@ -68,6 +68,7 @@ public class PostController {
     public String editPage(Model model, @PathVariable Long id){
 
         PostDto postDto = postService.getPostDetail(id);
+
         model.addAttribute("postDto",postDto);
 
         return "post/new";
@@ -75,7 +76,7 @@ public class PostController {
 
     // 글 수정 post
     @PostMapping("/edit/{id}")
-    public String editPost(@ModelAttribute PostDto postDto, @RequestParam List<MultipartFile> imgFileList, Model model){
+    public String editPost(@ModelAttribute PostDto postDto, @RequestParam("imgFile")  List<MultipartFile> imgFileList, Model model){
 
         // 글 수정 시 첫번째 이미지가 없으면 에러
         if (imgFileList.get(0).isEmpty() && postDto.getId() == null){

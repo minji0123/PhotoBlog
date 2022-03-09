@@ -42,7 +42,7 @@ public class PostImgService {
             // 이미지 이름 = 이미지경로 + 파일이름 + 파일크기
             imgName = fileService.uploadFiles(imgLocation, oriImgName, imgFile.getBytes());
             // 최종 이미지 경로
-            imgUrl = "/images/item/" + imgName;
+            imgUrl = "/item/" + imgName;
         }
         imgEntity.setImgName(imgName);
         imgEntity.setOriImgName(oriImgName);
@@ -67,7 +67,7 @@ public class PostImgService {
             // 수정한 이미지 파일 저장
             String oriImgName = imgFile.getOriginalFilename();
             String imgName = fileService.uploadFiles(imgLocation,oriImgName,imgFile.getBytes());
-            String imgUrl =  "/images/item/" + imgName;
+            String imgUrl =  "/item/" + imgName;
 
             // 1. setter 로 넣기
             // imgSaveEntity.setOriImgName(oriImgName);
