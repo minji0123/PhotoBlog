@@ -81,8 +81,17 @@ public class PostImgService {
             imgSaveEntity.imgUpdate(imgName, oriImgName,imgUrl);
 
         }
+    }
 
+    // 이미지 삭제
+    public void deleteImg(Long imgId , MultipartFile imgFile) throws Exception{
+        if(!imgFile.isEmpty()){
+            ImgEntity imgEntity = imgRepository.findById(imgId).orElse(null);
 
+            if(!StringUtils.isEmpty(imgEntity.getImgName())){
+                fileService.deleteFile(imgLocation + "/" + imgEntity.getImgName());
+            }
+        }
     }
 }
 

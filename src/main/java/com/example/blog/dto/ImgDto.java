@@ -29,6 +29,4 @@ public class ImgDto {
     public ImgEntity toEntity(){
         return new ImgEntity(imgName,oriImgName,imgUrl);
     }
-
-
 }

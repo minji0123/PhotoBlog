@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +21,6 @@ public class PostDto {
 
     @NotBlank(message = "내용을 입력해 주세요!")
     private String content;
-
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-
 
     public PostDto(Long id,String title, String content) {
         this.id = id;

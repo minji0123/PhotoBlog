@@ -18,6 +18,7 @@ public class PostController {
 
     private final PostService postService;
 
+    // 글 상세 view
     // 글 등록 view + post
     // 글 수정 view + post
     // 글 삭제 delete
@@ -76,7 +77,7 @@ public class PostController {
 
     // 글 수정 post
     @PostMapping("/edit/{id}")
-    public String editPost(@ModelAttribute PostDto postDto, @RequestParam("imgFile")  List<MultipartFile> imgFileList, Model model){
+    public String editPost(@ModelAttribute PostDto postDto, @RequestParam("imgFile") List<MultipartFile> imgFileList, Model model){
 
         // 글 수정 시 첫번째 이미지가 없으면 에러
         if (imgFileList.get(0).isEmpty() && postDto.getId() == null){
@@ -93,5 +94,18 @@ public class PostController {
         }
 
         return "redirect:/"; // 메인 페이지로 리다이렉트
+    }
+
+    // 글 삭제 delete
+    @PostMapping
+    public String deletePost(@ModelAttribute PostDto postDto, @RequestParam("imgFile") List<MultipartFile> imgFileList,Model model){
+
+        try{
+            postService.deletePost(postDto,imgFileList);
+        }catch(Exception e){
+            model.addAttribute("errorMessage","에러가 발생했습니다.");
+            return "post/new";
+        }
+        return "redirect:/";
     }
 }

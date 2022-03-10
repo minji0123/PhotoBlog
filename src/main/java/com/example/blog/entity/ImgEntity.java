@@ -56,7 +56,6 @@ public class ImgEntity {
         this.imgUrl = imgUrl;
     }
 
-
     public ImgDto toDto(){
         return new ImgDto(imgName,oriImgName,imgUrl);
     }

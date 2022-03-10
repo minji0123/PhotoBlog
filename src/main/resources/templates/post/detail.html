@@ -1,41 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
-
-<!-- 사용자 스크립트 추가 -->
-<th:block layout:fragment="script">
-    <script th:inline="javascript">
-
-    </script>
-</th:block>
-
-<!-- 사용자 CSS 추가 -->
-<th:block layout:fragment="css">
-</th:block>
+      layout:decorate="~{layouts/layout1}">
+<head>
+    <link th:href="@{/css/layout.css}" rel="stylesheet">
+</head>
 
 <div layout:fragment="content" >
 
     <div class="container">
+
         <input type="hidden" id="itemId" th:value="${postDto.id}">
 
-        <div class="d-flex detail-mt-md">
-
+        <div>
 <!--            <div class="repImgDiv">-->
 <!--                <img th:src="${postDto.postImgDtoList[0].imgUrl}" class = "rounded repImg" th:alt="${postDto.id}">-->
 <!--            </div>-->
 
-            <div class="wd50">
-                <h1 th:text="${postDto.title}"></h1>
-                <p th:text="${postDto.content}"></p>
+            <h1 th:text="${postDto.title}"></h1>
+            <hr>
+            <p th:text="${postDto.content}"></p>
 
+        </div>
+
+
+        <!-- 이미지를 반복문으로 출력 -->
+<!--        <div th:each="itemImg : ${postDto.postImgDtoList}" class="text-center">-->
+<!--            <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15">-->
+<!--        </div>-->
+
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <!-- 이미지를 반복문으로 출력 -->
+                    <div th:each="itemImg : ${postDto.postImgDtoList}" class="text-center">
+                        <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15">
+                    </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
 
-        <!-- 등록한 상품 이미지를 반복문으로 출력 -->
-        <div th:each="itemImg : ${postDto.postImgDtoList}" class="text-center">
-            <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
-        </div>
+
     </div>
 
 

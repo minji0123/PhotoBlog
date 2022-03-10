@@ -9,7 +9,6 @@ import com.example.blog.entity.PostEntity;
 import com.example.blog.repository.ImgRepository;
 import com.example.blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -128,4 +127,17 @@ public class PostService {
         return target.getId();
     }
 
+    public void deletePost(PostDto postDto,  List<MultipartFile> itemImgFileList) throws Exception{
+
+        PostEntity postEntity = postRepository.findById(postDto.getId()).orElse(null);
+        if (postEntity != null){
+            postRepository.delete(postEntity);
+        }
+
+        List<Long> imgIdList = postDto.getPostImgIdList();
+        for(int i=0; i<itemImgFileList.size();i++) {
+            postImgService.deleteImg(imgIdList.get(i),itemImgFileList.get(i));
+        }
+
+    }
 }

@@ -77,5 +77,4 @@ class PostServiceTest {
         assertEquals(multipartFileList.get(0).getOriginalFilename(),imgEntityList.get(0).getOriImgName());
     }
 
-
 }
