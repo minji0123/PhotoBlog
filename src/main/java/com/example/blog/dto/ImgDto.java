@@ -26,7 +26,7 @@ public class ImgDto {
         this.imgUrl = imgUrl;
     }
 
-    public ImgEntity toEntity(){
-        return new ImgEntity(imgName,oriImgName,imgUrl);
-    }
+//    public ImgEntity toEntity(){
+//        return new ImgEntity(imgName,oriImgName,imgUrl);
+//    }
 }

@@ -97,15 +97,10 @@ public class PostController {
     }
 
     // 글 삭제 delete
-    @PostMapping
-    public String deletePost(@ModelAttribute PostDto postDto, @RequestParam("imgFile") List<MultipartFile> imgFileList,Model model){
+    @PostMapping("/delete")
+    public String deletePost(@RequestParam("postDtoId") Long postDtoId){
+        postService.deletePost(postDtoId);
 
-        try{
-            postService.deletePost(postDto,imgFileList);
-        }catch(Exception e){
-            model.addAttribute("errorMessage","에러가 발생했습니다.");
-            return "post/new";
-        }
         return "redirect:/";
     }
 }

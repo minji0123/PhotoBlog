@@ -24,10 +24,10 @@
                                 <p class="card-text">[[${mainPostDto.content}]]</p>
                                 <a th:href="@{/edit/{id}(id=${mainPostDto.id})}">edit</a>
 
-<!--                                <form th:action="@{/}" th:method="post" enctype="multipart/form-data" >-->
-<!--                                    <input type="hidden" name="imgFile" th:value="${mainPostDto.id}">-->
-<!--                                    <button type="submit"> x </button>-->
-<!--                                </form>-->
+                                <form th:action="@{/delete}" th:method="post" enctype="multipart/form-data" >
+                                    <input type="hidden" name="postDtoId" th:value="${mainPostDto.id}">
+                                    <button type="submit"> x </button>
+                                </form>
 
                             </div>
                         </a>

@@ -31,9 +31,9 @@ public class PostService {
         List<MainPostDto> mainPostDtoList = new ArrayList<>();
 
         List<PostEntity> postEntities = postRepository.findAll();
-        String repimgUrl = "";
 
         for (PostEntity postEntity : postEntities) {
+            String repimgUrl = "";
             List<ImgEntity> imgEntities = imgRepository.findByPostEntityIdOrderByIdAsc(postEntity.getId());
 
             for (ImgEntity imgEntity : imgEntities) {
@@ -110,6 +110,7 @@ public class PostService {
 
         // 글 수정
         // dto -> entity -> repository
+        // postDto postEntity 둘 다 title, content 만 있어서 괜춘함 (id 는 바꿀 필요가없지)
         PostEntity postEntity = postDto.toEntity();
         PostEntity target = postRepository.findById(postDto.getId()).orElse(null);
         target.postPatch(postEntity);
@@ -121,22 +122,15 @@ public class PostService {
 
             // imgIdList.get(i): 수정할 이미지들의 id, itemImgFileList.get(i): 수정할 이미지 정보
             postImgService.updateImg(imgIdList.get(i), itemImgFileList.get(i));
-
         }
-
         return target.getId();
     }
 
-    public void deletePost(PostDto postDto,  List<MultipartFile> itemImgFileList) throws Exception{
-
-        PostEntity postEntity = postRepository.findById(postDto.getId()).orElse(null);
+    public void deletePost(Long postDtoId){
+        PostEntity postEntity = postRepository.findById(postDtoId).orElse(null);
+        postImgService.deleteImg(postDtoId);
         if (postEntity != null){
             postRepository.delete(postEntity);
-        }
-
-        List<Long> imgIdList = postDto.getPostImgIdList();
-        for(int i=0; i<itemImgFileList.size();i++) {
-            postImgService.deleteImg(imgIdList.get(i),itemImgFileList.get(i));
         }
 
     }

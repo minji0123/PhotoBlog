@@ -28,16 +28,15 @@ public class PostDto {
         this.content = content;
     }
 
-    // 글 이미지 아이디를 저장하는 리스트
-    // 글 저장 전에는 이미지가 없으니까 비어있음(이미지도 공백, 아이디도 공백!)
-    // 그냥 수정할 때 이미지 아이디 저장해둘 용도
+    // 수정할 때 글 이미지 아이디를 저장하는 리스트
     private List<Long> postImgIdList = new ArrayList<>();
 
-    // 글 저장 후 수정할 때 글 안의 이미지 정보를 저장하는 리스트
+    // 수정할 때 글 안의 이미지 정보를 저장하는 리스트
     private List<ImgDto> postImgDtoList = new ArrayList<>();
 
     public PostEntity toEntity (){
-        return new PostEntity(title,content);
+        // 글 수정할 때 사용함
+        return new PostEntity(id,title,content);
     }
 
 }

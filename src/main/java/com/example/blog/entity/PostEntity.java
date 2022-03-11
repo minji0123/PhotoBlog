@@ -1,6 +1,7 @@
 package com.example.blog.entity;
 
 import com.example.blog.dto.PostDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table
 @Data
@@ -24,10 +26,11 @@ public class PostEntity {
     private String content;
 
     // for service
-    public PostEntity(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
+//    public PostEntity(String title, String content) {
+//        this.title = title;
+//        this.content = content;
+//    }
+
 
     // for service_patch
     public void postPatch(PostEntity postEntity){
