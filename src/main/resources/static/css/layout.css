@@ -25,3 +25,10 @@ a{
 .w-50{
 width: 50%;
 }
+
+.btn{
+    border: none;
+    background: white;
+    float: right;
+    font-size: large;
+}
